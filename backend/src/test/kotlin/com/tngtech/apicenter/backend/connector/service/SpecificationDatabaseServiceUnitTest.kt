@@ -47,7 +47,8 @@ internal class SpecificationDatabaseServiceUnitTest {
             "Spec",
             "Description",
             listOf(VersionEntity(VersionId(null, "1.0.0"), "{\"json\": \"true\"}", null, null)),
-            "http://swaggerpetstore.com/docs"
+            "http://swaggerpetstore.com/docs",
+            listOf()
         )
 
         given(specificationEntityMapper.fromDomain(specification)).willReturn(specificationEntity)

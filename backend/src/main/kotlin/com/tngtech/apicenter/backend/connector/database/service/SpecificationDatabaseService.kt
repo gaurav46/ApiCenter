@@ -28,7 +28,7 @@ class SpecificationDatabaseService constructor(
             val existingEntity = specificationRepository.findByTitle(specificationEntity.title)
 
             val versions = existingEntity.versions + specificationEntity.versions
-            val newEntity = SpecificationEntity(existingEntity.id, existingEntity.title, existingEntity.description, versions, existingEntity.remoteAddress)
+            val newEntity = SpecificationEntity(existingEntity.id, existingEntity.title, existingEntity.description, versions, existingEntity.remoteAddress, existingEntity.users)
 
             mapAndStoreEntity(newEntity)
         } else {

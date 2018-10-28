@@ -4,6 +4,7 @@ import java.util.UUID
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 
 @Entity
 data class UserEntity(
@@ -11,4 +12,5 @@ data class UserEntity(
     val username: String,
     val email: String,
     val origin: String,
-    val externalId: String)
+    val externalId: String,
+    @ManyToMany val specifications: List<SpecificationEntity>)

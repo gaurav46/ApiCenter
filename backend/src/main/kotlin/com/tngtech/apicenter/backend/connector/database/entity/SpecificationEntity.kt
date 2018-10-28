@@ -8,6 +8,7 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import javax.persistence.OrderBy
 
@@ -21,5 +22,6 @@ data class SpecificationEntity(
         mappedBy = "specification",
         cascade = [CascadeType.ALL]
     ) @OrderBy("created DESC") val versions: List<VersionEntity>,
-    val remoteAddress: String?
+    val remoteAddress: String?,
+    @ManyToMany val users: List<UserEntity>
 )
