@@ -32,6 +32,6 @@ class SessionController @Autowired constructor(private val sessionHandler: Sessi
             .withSubject(user.username)
             .sign(Algorithm.HMAC512(jwtSecuritySecret.toByteArray()))
 
-        return ResponseEntity.ok(SessionDto("Bearer $jwt", user.username))
+        return ResponseEntity.ok(SessionDto("Bearer $jwt", user.username, user.id))
     }
 }
