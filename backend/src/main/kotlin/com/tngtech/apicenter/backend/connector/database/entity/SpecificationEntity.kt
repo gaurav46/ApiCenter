@@ -8,6 +8,8 @@ import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.JoinTable
 import javax.persistence.ManyToMany
 import javax.persistence.OneToMany
 import javax.persistence.OrderBy
@@ -23,5 +25,9 @@ data class SpecificationEntity(
         cascade = [CascadeType.ALL]
     ) @OrderBy("created DESC") val versions: List<VersionEntity>,
     val remoteAddress: String?,
-    @ManyToMany val users: List<UserEntity>
+    @ManyToMany @JoinTable(
+        name = "SPECIFICATION_ENTITY_USERS",
+        joinColumns = [JoinColumn(name = "specification_entity_id")],
+        inverseJoinColumns = [JoinColumn(name = "user_entity_id")]
+    ) val users: List<UserEntity>
 )
