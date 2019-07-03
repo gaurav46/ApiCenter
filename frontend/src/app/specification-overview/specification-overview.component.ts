@@ -5,7 +5,6 @@ import {ApiLanguage, Specification} from '../models/specification';
 import {SpecificationStore} from '../specification-store.service';
 import {Title} from '@angular/platform-browser';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Observable} from "rxjs";
 
 const pointingRight = {
   'transform': 'rotate(0)'
@@ -180,7 +179,6 @@ export class SpecificationOverviewComponent implements OnInit {
           return service;
         });
 
-        console.log(data.last);
         return {services, isLast: data.last};
       },
       error => {
