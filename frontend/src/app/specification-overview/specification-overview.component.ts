@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ServiceStore} from '../service-store.service';
-import {Service} from '../models/service';
+import {Page, Service} from '../models/service';
 import {ApiLanguage, Specification} from '../models/specification';
 import {SpecificationStore} from '../specification-store.service';
 import {Title} from '@angular/platform-browser';
@@ -146,13 +146,14 @@ export class SpecificationOverviewComponent implements OnInit {
 
   private async getServices() {
     this.serviceStore.getServices().subscribe(
-     (data: Service[]) => {
+     (data: Page<Service>) => {
        data
+         .content
          .map(element =>
            // An explicit constructor is required to use the Service class methods
            new Service(element.id, element.title, element.description, element.specifications, element.remoteAddress))
          .forEach(service => service.sortVersionsSemantically());
-       this.services = data;
+       this.services = data.content;
      },
      error1 => {
        if (error1.status === 403) {
