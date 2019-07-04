@@ -21,4 +21,12 @@ class Service(
                 this.remoteAddress
         )
     }
+
+    fun removePrereleases(): Service =
+            Service(this.id,
+                    this.title,
+                    this.description,
+                    this.specifications.filter { spec -> true }, // waiting on the PR which includes the release type field
+                    this.remoteAddress
+            )
 }

@@ -1,5 +1,6 @@
 package com.tngtech.apicenter.backend.connector.rest.controller
 
+import com.tngtech.apicenter.backend.domain.entity.PermissionType
 import com.tngtech.apicenter.backend.connector.rest.dto.ServiceDto
 import com.tngtech.apicenter.backend.connector.rest.dto.SpecificationDto
 import com.tngtech.apicenter.backend.connector.rest.dto.SpecificationFileDto
@@ -50,6 +51,19 @@ class ServiceController @Autowired constructor(
         serviceHandler.addNewSpecification(specification, ServiceId(specificationId), specificationFileDto.fileUrl)
 
         return specificationFileDtoMapper.fromDomain(specification)
+    }
+
+    @PutMapping("/{serviceId}/chmod/{userId}")
+    fun chmodVersion(@PathVariable serviceId: String,
+                     @PathVariable userId: String,
+                     @RequestParam(value = "view", defaultValue = "false") view: String,
+                     @RequestParam(value = "viewPrereleases", defaultValue = "false") viewPrereleases: String,
+                     @RequestParam(value = "edit", defaultValue = "false") edit: String
+    ) {
+        val id = ServiceId(serviceId)
+        serviceHandler.changePermission(id, userId, view.toBoolean(), PermissionType.VIEW)
+        serviceHandler.changePermission(id, userId, viewPrereleases.toBoolean(), PermissionType.VIEWPRERELEASE)
+        serviceHandler.changePermission(id, userId, edit.toBoolean(), PermissionType.EDIT)
     }
 
     private fun getConsistentId(specificationFileDto: SpecificationFileDto, specificationIdFromPath: String): String {
