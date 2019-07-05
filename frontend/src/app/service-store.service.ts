@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {environment} from '../environments/environment';
 import {Service} from './models/service';
 import {SpecificationFile} from './models/specificationfile';
@@ -51,4 +51,18 @@ export class ServiceStore {
       .catch((error: any) => throwError(error || 'Server error'));
   }
 
+  public chmodSpecification(serviceId: string,
+                            userId: string,
+                            view: boolean,
+                            viewPrereleases: boolean,
+                            edit: boolean
+  ): Observable<Service> {
+    const params = new HttpParams()
+      .set('view', String(view))
+      .set('viewPrereleases', String(viewPrereleases))
+      .set('edit', String(edit));
+
+    return this.http.put<Service>(this.urlRoot + '/' + serviceId + '/chmod/' + userId, {}, {params})
+      .catch((error: any) => throwError(error || 'Server error'));
+  }
 }
